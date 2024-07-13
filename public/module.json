@@ -3,16 +3,9 @@
 	"title": "Hex Token Size Support",
 	"description": "Improves support for hexagonal tokens of sizes greater than one by altering the grid snapping rules",
 	"authors": [
-		{
-			"name": "Kuenaimaku",
-			"email": "kuenaimaku@gmail.com",
-			"url": "https://github.com/Kuenaimaku"
-		},
-		{
-			"name": "Ourobor",
-			"email": "",
-			"url": "https://github.com/Ourobor"
-		}
+		{ "name": "Bolts", "url": "https://github.com/BoltsJ" },
+		{ "name": "Kuenaimaku", "url": "https://github.com/Kuenaimaku" },
+		{ "name": "Ourobor", "url": "https://github.com/Ourobor" }
 	],
 	"version": "3.0.0",
 	"compatibility": {
@@ -34,7 +27,7 @@
 	},
 	"languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
 	"esmodules": ["hss.js"],
-	"url": "https://github.com/Kuenaimaku/hex-size-support.git",
+	"url": "https://github.com/BoltsJ/hex-size-support",
 	"manifest": "",
 	"download": ""
 }
