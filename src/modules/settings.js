@@ -13,23 +13,13 @@ export function registerSettings() {
 		onChange: canvasRedraw,
 	});
 
-	game.settings.register("hex-size-support", "altOrientationDefault", {
-		name: "hex-size-support.settings.altOrientationDefault.name",
-		hint: "hex-size-support.settings.altOrientationDefault.hint",
-		scope: "world",
-		type: Boolean,
-		config: true,
-		default: false,
-		onChange: canvasRedraw,
-	});
-
 	game.settings.register("hex-size-support", "borderWidth", {
 		name: "hex-size-support.settings.borderWidth.name",
 		hint: "hex-size-support.settings.borderWidth.hint",
 		scope: "world",
 		type: Number,
 		config: true,
-		default: 2,
+		default: CONFIG.Canvas.objectBorderThickness,
 		range: {
 			min: 1,
 			max: 20,
@@ -67,42 +57,57 @@ export function registerSettings() {
 	 */
 
 	game.settings.register("hex-size-support", "controlledColor", {
-		name: "hex-size-support.settings.controlledColor.name",
 		scope: "client",
-		type: String,
-		default: "#FF9829",
+		name: "hex-size-support.settings.controlledColor.name",
+		type: new foundry.data.fields.ColorField({
+			required: true,
+			blank: false,
+			initial: "#FF9829",
+		}),
 		config: true,
 		onChange: val => setBorderColor("CONTROLLED", val),
 	});
 	game.settings.register("hex-size-support", "partyColor", {
-		name: "hex-size-support.settings.partyColor.name",
 		scope: "client",
-		type: String,
-		default: "#0A7AB2",
+		name: "hex-size-support.settings.partyColor.name",
+		type: new foundry.data.fields.ColorField({
+			required: true,
+			blank: false,
+			initial: "#0A7AB2",
+		}),
 		config: true,
 		onChange: val => setBorderColor("PARTY", val),
 	});
 	game.settings.register("hex-size-support", "friendlyColor", {
 		name: "hex-size-support.settings.friendlyColor.name",
 		scope: "client",
-		type: String,
-		default: "#0A7AB2",
+		type: new foundry.data.fields.ColorField({
+			required: true,
+			blank: false,
+			initial: "#0A7AB2",
+		}),
 		config: true,
 		onChange: val => setBorderColor("FRIENDLY", val),
 	});
 	game.settings.register("hex-size-support", "neutralColor", {
 		name: "hex-size-support.settings.neutralColor.name",
 		scope: "client",
-		type: String,
-		default: "#F1D836",
+		type: new foundry.data.fields.ColorField({
+			required: true,
+			blank: false,
+			initial: "#F1D836",
+		}),
 		config: true,
 		onChange: val => setBorderColor("NEUTRAL", val),
 	});
 	game.settings.register("hex-size-support", "hostileColor", {
 		name: "hex-size-support.settings.hostileColor.name",
 		scope: "client",
-		type: String,
-		default: "#E72124",
+		type: new foundry.data.fields.ColorField({
+			required: true,
+			blank: false,
+			initial: "#E72124",
+		}),
 		config: true,
 		onChange: val => setBorderColor("HOSTILE", val),
 	});
@@ -174,10 +179,7 @@ function flipControlledTokens() {
 	const updates = canvas.tokens?.controlled.map(t => {
 		return {
 			_id: t.document.id,
-			"flags.hex-size-support.alternateOrientation": !t.document.getFlag(
-				"hex-size-support",
-				"alternateOrientation"
-			),
+			hexagonalShape: t.document.hexagonalShape ^ 1,
 		};
 	});
 	canvas.scene?.updateEmbeddedDocuments("Token", updates).then(() => {
