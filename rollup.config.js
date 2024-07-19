@@ -1,6 +1,5 @@
 import { terser } from "rollup-plugin-terser";
 import copy from "rollup-plugin-copy";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 /** @type {import("rollup").RollupOptions} */
 export default {
@@ -15,6 +14,5 @@ export default {
   },
   plugins: [
     copy({ targets: [{ src: "public/*", dest: "dist" }] }),
-    nodeResolve(),
   ],
 };

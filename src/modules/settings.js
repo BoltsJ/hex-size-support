@@ -72,79 +72,45 @@ export function registerSettings() {
 		type: String,
 		default: "#FF9829",
 		config: true,
-		onChange: val => {
-			CONFIG.Canvas.dispositionColors.CONTROLLED = parseInt(val.substr(1), 16);
-			canvasRedraw();
-		},
+		onChange: val => setBorderColor("CONTROLLED", val),
 	});
-	CONFIG.Canvas.dispositionColors.CONTROLLED = parseInt(
-		game.settings.get("hex-size-support", "controlledColor").substr(1),
-		16
-	);
-
 	game.settings.register("hex-size-support", "partyColor", {
 		name: "hex-size-support.settings.partyColor.name",
 		scope: "client",
 		type: String,
 		default: "#0A7AB2",
 		config: true,
-		onChange: val => {
-			CONFIG.Canvas.dispositionColors.PARTY = parseInt(val.substr(1), 16);
-			canvasRedraw();
-		},
+		onChange: val => setBorderColor("PARTY", val),
 	});
-	CONFIG.Canvas.dispositionColors.PARTY = parseInt(
-		game.settings.get("hex-size-support", "partyColor").substr(1),
-		16
-	);
-
 	game.settings.register("hex-size-support", "friendlyColor", {
 		name: "hex-size-support.settings.friendlyColor.name",
 		scope: "client",
 		type: String,
 		default: "#0A7AB2",
 		config: true,
-		onChange: val => {
-			CONFIG.Canvas.dispositionColors.FRIENDLY = parseInt(val.substr(1), 16);
-			canvasRedraw();
-		},
+		onChange: val => setBorderColor("FRIENDLY", val),
 	});
-	CONFIG.Canvas.dispositionColors.FRIENDLY = parseInt(
-		game.settings.get("hex-size-support", "friendlyColor").substr(1),
-		16
-	);
-
 	game.settings.register("hex-size-support", "neutralColor", {
 		name: "hex-size-support.settings.neutralColor.name",
 		scope: "client",
 		type: String,
 		default: "#F1D836",
 		config: true,
-		onChange: val => {
-			CONFIG.Canvas.dispositionColors.NEUTRAL = parseInt(val.substr(1), 16);
-			canvasRedraw();
-		},
+		onChange: val => setBorderColor("NEUTRAL", val),
 	});
-	CONFIG.Canvas.dispositionColors.NEUTRAL = parseInt(
-		game.settings.get("hex-size-support", "neutralColor").substr(1),
-		16
-	);
-
 	game.settings.register("hex-size-support", "hostileColor", {
 		name: "hex-size-support.settings.hostileColor.name",
 		scope: "client",
 		type: String,
 		default: "#E72124",
 		config: true,
-		onChange: val => {
-			CONFIG.Canvas.dispositionColors.HOSTILE = parseInt(val.substr(1), 16);
-			canvasRedraw();
-		},
+		onChange: val => setBorderColor("HOSTILE", val),
 	});
-	CONFIG.Canvas.dispositionColors.HOSTILE = parseInt(
-		game.settings.get("hex-size-support", "hostileColor").substr(1),
-		16
-	);
+	setBorderColor("CONTROLLED", game.settings.get("hex-size-support", "controlledColor"));
+	setBorderColor("PARTY", game.settings.get("hex-size-support", "partyColor"));
+	setBorderColor("FRIENDLY", game.settings.get("hex-size-support", "friendlyColor"));
+	setBorderColor("NEUTRAL", game.settings.get("hex-size-support", "neutralColor"));
+	setBorderColor("HOSTILE", game.settings.get("hex-size-support", "hostileColor"));
 
 	// Register flipping to keybinds for those that want it.
 	game.keybindings.register("hex-size-support", "swapOrientation", {
@@ -154,6 +120,23 @@ export function registerSettings() {
 		editable: [], //[{ key: "KeyR", modifiers: ["Shift"] }],
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
 	});
+}
+
+/**
+ * @param {string} key
+ * @param {string} value
+ */
+function setBorderColor(key, value) {
+	const valid = /^#[0-9A-Fa-f]{6}$/.test(value);
+	if (!valid) {
+		const msg = `Cannot set ${key.toLowerCase()} border color. "${value}" is not a valid color.`;
+		ui.notifications?.error(msg);
+		game.settings.set("hex-size-support", `${key.toLocaleLowerCase()}Color`, undefined);
+		return false;
+	}
+	const color = parseInt(value.substring(1), 16);
+	CONFIG.Canvas.dispositionColors[key] = color;
+	if (canvas.ready) canvas.draw();
 }
 
 /**
