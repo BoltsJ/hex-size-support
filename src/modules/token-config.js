@@ -30,6 +30,7 @@ export function extendTokenConfig(app, $el) {
 	let scale = $el.find("[name=scale]");
 	scale.attr("max", Number(5.0));
 	scale.attr("step", Number(0.01));
+	// Re-apply the value to prevent the old step from rounding it
 	scale.val(Math.abs(app.document.texture.scaleX));
 
 	app.setPosition();
