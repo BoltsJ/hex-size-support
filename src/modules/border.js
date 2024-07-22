@@ -9,13 +9,27 @@ export function registerBorderWrappers() {
 			/** @type boolean */
 			const always_show = game.settings.get("hex-size-support", "alwaysShowBorder");
 			/** @type boolean */
-			const fill_border = game.settings.get("hex-size-support", "fillBorder");
+			const fill_border =
+				game.settings.get("hex-size-support", "fillBorder") &&
+				!this.document.getFlag("hex-size-support", "hideFill");
 			const options = {};
 
 			if (always_show) options.hover = true;
 
 			this.border.clear();
 			const borderColor = this._getBorderColor(options);
+			const fillColor = this._getBorderColor.call(
+				{
+					actor: this.actor,
+					controlled: false,
+					document: this.document,
+					hover: this.hover,
+					isOwner: this.isOwner,
+					layer: this.layer,
+				},
+				options
+			);
+
 			if (!borderColor) return;
 
 			const t = CONFIG.Canvas.objectBorderThickness;
@@ -29,7 +43,7 @@ export function registerBorderWrappers() {
 				if (polygon) {
 					this.border.lineStyle(t, 0x000000, 0.8).drawPolygon(polygon);
 					this.border.lineStyle(t / 2, borderColor, 1.0).drawPolygon(polygon);
-					if (fill_border) this.border.beginFill(borderColor, 0.3).drawPolygon(polygon);
+					if (fill_border) this.border.beginFill(fillColor, 0.3).drawPolygon(polygon);
 					return;
 				}
 			} else if (
@@ -41,7 +55,7 @@ export function registerBorderWrappers() {
 					.lineStyle(t / 2, borderColor, 1.0)
 					.drawCircle(this.w / 2, this.h / 2, this.w / 2);
 				if (fill_border)
-					this.border.beginFill(borderColor, 0.3).drawCircle(this.w / 2, this.h / 2, this.w / 2);
+					this.border.beginFill(fillColor, 0.3).drawCircle(this.w / 2, this.h / 2, this.w / 2);
 				return;
 			}
 
@@ -51,7 +65,7 @@ export function registerBorderWrappers() {
 			this.border.lineStyle(t, 0x000000, 0.8).drawRoundedRect(-o, -o, this.w + h, this.h + h, 3);
 			this.border.lineStyle(h, borderColor, 1.0).drawRoundedRect(-o, -o, this.w + h, this.h + h, 3);
 			if (fill_border) {
-				this.border.beginFill(borderColor, 0.3).drawRoundedRect(0, 0, this.w, this.h, 3);
+				this.border.beginFill(fillColor, 0.3).drawRoundedRect(0, 0, this.w, this.h, 3);
 			}
 		},
 		"OVERRIDE"
