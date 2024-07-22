@@ -34,11 +34,20 @@ export function extendTokenConfig(app, $el) {
 			}>
 		</div>
 	</div>
+	<div class="form-group slim">
+		<label>${game.i18n.localize("hex-size-support.tokenConfig.hideFill.label")}</label>
+		<div class="form-fields">
+			<input type="checkbox" step="1" name="flags.hex-size-support.hideFill" ${
+				app.object.getFlag("hex-size-support", "hideFill") ? "checked" : ""
+			}>
+		</div>
+	</div>
 	`);
 	
-	let x = $el.find("[name=scale]");
-	x.attr('max', Number(5.0));
-	x.attr('step', Number(0.01)); 
+	let scale = $el.find("[name=scale]");
+	scale.attr('max', Number(5.0));
+	scale.attr('step', Number(0.01)); 
+	scale.val(Math.abs(app.document.texture.scaleX));
 
 	app.setPosition();
 }
