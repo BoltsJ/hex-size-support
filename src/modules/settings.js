@@ -38,7 +38,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: true,
+		default: false,
 		onChange: canvasRedraw,
 	});
 
@@ -46,9 +46,19 @@ export function registerSettings() {
 		name: "hex-size-support.settings.fillBorder.name",
 		hint: "hex-size-support.settings.fillBorder.hint",
 		scope: "world",
-		type: Boolean,
+		type: new foundry.data.fields.StringField({
+			initial: "none",
+			required: true,
+			choices: {
+				none: "TOKEN.DISPLAY_NONE",
+				control: "TOKEN.DISPLAY_CONTROL",
+				owner_hov: "TOKEN.DISPLAY_OWNER_HOVER",
+				hover: "TOKEN.DISPLAY_HOVER",
+				owner: "TOKEN.DISPLAY_OWNER",
+				always: "TOKEN.DISPLAY_ALWAYS",
+			},
+		}),
 		config: true,
-		default: false,
 		onChange: canvasRedraw,
 	});
 
