@@ -60,6 +60,10 @@
 			"hideBorder": {
 				"label": "Hide Border",
 				"notes": "Hide the token's border. Overrides Module setting 'Always Show Border.'"
+			},
+			"hideFill": {
+				"label": "Hide Border Fill",
+				"notes": "Hide the token's border fill color. Overrides Module setting 'Fill Border Contents.'"
 			}
 		}
 	}

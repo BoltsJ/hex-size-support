@@ -17,7 +17,11 @@ export function extendTokenConfig(app, $el) {
 		</div>
 	</div>
 	`);
-	$el.find("[name=mirrorX]").closest(".form-group").after(`
+	$el
+		.find("[name=mirrorX]")
+		.closest(".form-group")
+		.after(
+			`
 	<div class="form-group slim">
 		<label>${game.i18n.localize("hex-size-support.tokenConfig.altOrientation.label")}</label>
 		<div class="form-fields">
@@ -33,7 +37,9 @@ export function extendTokenConfig(app, $el) {
 				app.object.getFlag("hex-size-support", "hideBorder") ? "checked" : ""
 			}>
 		</div>
-	</div>
+	</div>` +
+				(game.settings.get("hex-size-support", "fillBorder")
+					? `
 	<div class="form-group slim">
 		<label>${game.i18n.localize("hex-size-support.tokenConfig.hideFill.label")}</label>
 		<div class="form-fields">
@@ -42,11 +48,13 @@ export function extendTokenConfig(app, $el) {
 			}>
 		</div>
 	</div>
-	`);
-	
+	`
+					: "")
+		);
+
 	let scale = $el.find("[name=scale]");
-	scale.attr('max', Number(5.0));
-	scale.attr('step', Number(0.01)); 
+	scale.attr("max", Number(5.0));
+	scale.attr("step", Number(0.01));
 	scale.val(Math.abs(app.document.texture.scaleX));
 
 	app.setPosition();
