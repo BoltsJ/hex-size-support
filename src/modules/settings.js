@@ -155,34 +155,6 @@ function setBorderColor(key, value) {
 }
 
 /**
- * @param {SettingsConfig} _app
- * @param {JQuery<HTMLElement>} el
- */
-export function renderSettingsConfig(_app, el) {
-	let nC = game.settings.get("hex-size-support", "neutralColor");
-	let fC = game.settings.get("hex-size-support", "friendlyColor");
-	let hC = game.settings.get("hex-size-support", "hostileColor");
-	let pC = game.settings.get("hex-size-support", "partyColor");
-	let cC = game.settings.get("hex-size-support", "controlledColor");
-
-	el.find('[name="hex-size-support.controlledColor"]')
-		.parent()
-		.append(`<input type="color"value="${cC}" data-edit="hex-size-support.controlledColor">`);
-	el.find('[name="hex-size-support.partyColor"]')
-		.parent()
-		.append(`<input type="color" value="${pC}" data-edit="hex-size-support.partyColor">`);
-	el.find('[name="hex-size-support.friendlyColor"]')
-		.parent()
-		.append(`<input type="color" value="${fC}" data-edit="hex-size-support.friendlyColor">`);
-	el.find('[name="hex-size-support.neutralColor"]')
-		.parent()
-		.append(`<input type="color" value="${nC}" data-edit="hex-size-support.neutralColor">`);
-	el.find('[name="hex-size-support.hostileColor"]')
-		.parent()
-		.append(`<input type="color" value="${hC}" data-edit="hex-size-support.hostileColor">`);
-}
-
-/**
  * Toggle the orientation flag on all controlled tokens
  */
 function flipControlledTokens() {
