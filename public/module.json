@@ -1,7 +1,7 @@
 {
 	"id": "hex-size-support",
-	"title": "Hex Token Size Support",
-	"description": "Improves support for hexagonal tokens of sizes greater than one by altering the grid snapping rules",
+	"title": "Token Border Supplements",
+	"description": "Enhances how token borders are displayed allowing improved visual clarity, espectially for large tokens on hexagonal grids. Formerly Hex Token Size Support",
 	"authors": [
 		{ "name": "Bolts", "url": "https://github.com/BoltsJ" },
 		{ "name": "Kuenaimaku", "url": "https://github.com/Kuenaimaku" },
