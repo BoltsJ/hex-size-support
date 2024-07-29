@@ -6,7 +6,7 @@ A Foundry VTT add-on module that enhances how token borders are displayed allowi
 
 # Installation
 
-Search for Token Border Support in the foundry module browser.
+Search for Token Border Supplements in the foundry module browser.
 
 # How it works
 
@@ -25,3 +25,7 @@ Additionally, there are colorpicker settings in order to set the border color fo
 
 * **Hide Border** - When **Always Show Border** is enabled, this setting allows the token to override it. Defaults to false.
 * **Hide Border Fill** - When **Fill Border Contents** is enabled, this setting hides it for just this token. Defaults to false.
+
+### Older Versions
+* [V10-11 Readme](https://github.com/BoltsJ/hex-size-support/blob/v3.2/README.md)
+* [V9 Readme](https://github.com/BoltsJ/hex-size-support/blob/v1.3.0/README.md)
